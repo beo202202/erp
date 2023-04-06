@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
-from .forms import ProductForm
-from .models import Product
+from .forms import ProductForm, InboundForm
+from .models import Product, Inbound
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from datetime import datetime
 
 # Create your views here.
 
 # view.py
 
 
+@transaction.atomic
 @login_required
 def product_create(request):
     if request.method == 'POST':
@@ -50,6 +53,7 @@ def product_success(request):
 
 
 @login_required
+@transaction.atomic
 def product_all_delete(request):
     # Product 테이블의 모든 레코드 삭제
     Product.objects.all().delete()
@@ -57,8 +61,30 @@ def product_all_delete(request):
 
 
 @login_required
+@transaction.atomic
 def product_my_all_delete(request):
     # 현재 접속한 사람의 레코드 삭제
     user = request.user
     Product.objects.filter(author_id=user).delete()
     return redirect('/product-list')
+
+
+# views.py
+@login_required
+@transaction.atomic
+def inbound_create(request):
+    # 상품 입고 view
+    # 입고 기록 생성
+    if request.method == 'POST':
+        form = InboundForm(request.POST)
+        if form.is_valid():
+            inbound = form.save(commit=False)
+            inbound.inbound_date = datetime.now()
+            inbound.save()
+            # 성공하셨습니다! 글자만 보여주고 주소는 같음.
+            return HttpResponse('성공하셨습니다!')
+            # 입/출고 합산 기능 연결...
+            # return redirect('inbound-list')
+    else:
+        form = InboundForm()
+    return render(request, 'erp/inbound_create.html', {'form': form})
