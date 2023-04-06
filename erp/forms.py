@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product
+from .models import Product, Inbound
 
 # form.py
 
@@ -9,12 +9,9 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['code', 'name', 'description', 'price', 'size']
 
-# class ProductForm(forms.Form):
-#     class Meta:
-#         model = Product
 
-#         code = forms.CharField(max_length=20)
-#         name = forms.CharField(max_length=50)
-#         description = forms.Textarea()
-#         price = forms.IntegerField()
-#         size = forms.CharField()
+class InboundForm(forms.ModelForm):
+    # 입고 모델
+    class Meta:
+        model = Inbound
+        fields = ['product', 'quantity', 'amount']
