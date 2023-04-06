@@ -16,12 +16,11 @@ def home(request):
     if user:
         # return redirect('/tweet')
         return render(request, 'my_test.html')
-        return render('../my_test.html')
     else:
         return redirect('/sign-in')
 
 
-def sign_up_view(request):
+def sign_up(request):
     if request.method == 'GET':
         user = request.user.is_authenticated
         if user:
@@ -53,7 +52,7 @@ def sign_up_view(request):
                 return redirect('/sign-in')
 
 
-def sign_in_view(request):
+def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
@@ -63,35 +62,16 @@ def sign_in_view(request):
             auth.login(request, me)
             return redirect('/')
         else:
-            return render(request, 'accounts/signin.html', {'error': '유저이름 혹은 패스워드를 확인 해 주세요'})
+            return render(request, 'accounts/login.html', {'error': '유저이름 혹은 패스워드를 확인 해 주세요'})
     elif request.method == 'GET':
         user = request.user.is_authenticated
         if user:
             return redirect('/')
         else:
-            return render(request, 'accounts/signin.html')
+            return render(request, 'accounts/login.html')
 
 
 @login_required
-def logout(request):
+def user_logout(request):
     auth.logout(request)
     return redirect('/')
-
-
-@login_required
-def user_view(request):
-    if request.method == 'GET':
-        # 사용자를 불러오기, exclude와 request.user.username 를 사용해서 '로그인 한 사용자'를 제외하기
-        user_list = AccountsModel.objects.all().exclude(username=request.user.username)
-        return render(request, 'accounts/user_list.html', {'user_list': user_list})
-
-
-@login_required
-def user_follow(request, id):
-    me = request.user
-    click_user = AccountsModel.objects.get(id=id)
-    if me in click_user.followee.all():
-        click_user.followee.remove(request.user)
-    else:
-        click_user.followee.add(request.user)
-    return redirect('/user')
