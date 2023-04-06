@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="wrap">
+    <div class="wrap2">
         <h2 class="title-center">로그인</h2>
         <form class="form-area" method="post" action="/sign-in/">
             {% csrf_token %} <!-- 장고 보안 토큰 -->
@@ -21,7 +21,7 @@
             </div>
             {% endif %}
             <hr>
-            <div style="float: right">
+            <div class="title-center">
                 <button type="submit" class="btn btn-warning">로그인</button>
                 <a href="/sign-up" class="btn btn-secondary">회원가입 페이지로</a>
             </div>
