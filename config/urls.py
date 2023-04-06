@@ -23,5 +23,5 @@ urlpatterns = [
     # path('test/', views.base_response, name='first_test'),
     # path('first/', views.first_view, name='first_view'),
     path('', include('accounts.urls')),
-    # path('',include('tweet.urls')),
+    path('', include('erp.urls')),
 ]

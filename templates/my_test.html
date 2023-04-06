@@ -4,16 +4,19 @@
 테스트 페이지
 {% endblock %}
 {% block content %}
-<!-- <div></div> main은 중간 div는 바로 위뢰 -->
-<main class="container">
-    <article>
-        <details>
-            <summary>공부용입니다. Accordion 1</summary>
-            <ul>
-                <li>그냥 기본 테스트 페이지에요</li>
-                <li>…</li>
-            </ul>
-        </details>
-    </article>
-</main>
+<div class="container">
+    <div class="wrap">
+        <article>
+            <details>
+                <summary>공부용입니다. Accordion 1</summary>
+                <ul>
+                    <li>그냥 기본 테스트 페이지에요</li>
+                    <li><a href="/product-create/">상품 등록</a></li>
+                    <li><a href="/product-list/">상품 리스트</a></li>
+                    <li><a href="/product-success/">성공 페이지</a></li>
+                </ul>
+            </details>
+        </article>
+    </div>
+</div>
 {% endblock %}

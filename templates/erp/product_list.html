@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+상품 리스트
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="wrap">
+        <article>
+            <h2 class="title-center">상품 리스트</h2>
+            <a href="/product-create/" class="btn btn-warning">상품 등록</a>
+            <br>
+            <a href="/product-all-delete/" class="btn btn-danger">전체 삭제</a>
+            <a href="/product-my-all-delete/" class="btn btn-primary">내 상품 전체 삭제</a>
+            <div class="border border-warning">
+                <table class="table">
+                    <tr>
+                        <th scope="col">사람id</th>
+                        <th scope="col">코드</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">설명</th>
+                        <th scope="col">가격</th>
+                        <th scope="col">size</th>
+                    </tr>
+                    {% for product in products %}
+                    <tr>
+                        <th scope="col">{{ product.author_id }}</th>
+                        <th scope="col">{{ product.code }}</th>
+                        <th scope="col">{{ product.name }}</th>
+                        <th scope="col">{{ product.description }}</th>
+                        <th scope="col">{{ product.price }}</th>
+                        <th scope="col">{{ product.size }}</th>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}
+<!-- product 모델에 user필드가 존재해야하고, 
+    사용자와 상품 모델을 연결하는 코드도 추후 추가해야함 -->
