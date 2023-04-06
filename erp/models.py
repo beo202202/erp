@@ -14,7 +14,7 @@ class Product(models.Model):
     # 상품 코드, 상품 이름, 상품 설명, 상품 가격, 사이즈 필드를 가집니다.
     # """
     author = models.ForeignKey(AccountsModel, on_delete=models.CASCADE)
-    code = models.CharField(max_length=20, unique=True, primary_key=True)
+    code = models.CharField(max_length=20, primary_key=True)
     name = models.CharField(max_length=50)
     description = models.TextField()
     price = models.IntegerField()
@@ -45,13 +45,12 @@ class Product(models.Model):
 
 
 class Inbound(models.Model):
-    id = models.AutoField(primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
-    inbound_date = models.DateTimeField(auto_now_add=True)
-    amount = models.IntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=0)
+    inbound_date = models.DateField(auto_now_add=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        db_table = "stock"
+        db_table = "inbound"
         # 내림차순으로 정렬
         ordering = ['-inbound_date']

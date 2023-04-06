@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="wrap">
+        <h1>상품 입고</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">저장</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
