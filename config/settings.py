@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 새로 넣을 것.
+    # 새로 넣은 것.
     'accounts',
+    'erp',
 ]
 
 MIDDLEWARE = [
