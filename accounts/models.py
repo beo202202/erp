@@ -8,6 +8,3 @@ from django.conf import settings
 class AccountsModel(AbstractUser):
     class Meta:
         db_table = "accounts"
-
-    # bio = models.CharField(max_length=256, default='')
-    # follow = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='followee')
