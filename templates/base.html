@@ -21,7 +21,7 @@
         }
 
         .wrap {
-            width: 600px;
+            width: 800px;
             margin: 0 auto;
         }
 
@@ -37,23 +37,14 @@
         .timeline-container {
             margin-top: 25px
         }
-
-        /* #ffb300; */
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Musinsa</a>
+            <a class="navbar-brand" href="/">MUSINSA</a>
             {% if user.is_authenticated %}
-            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/user"> 친구 <span class="sr-only"></span></a>
-                    </li>
-                </ul>
-            </div> -->
             {% endif %}
             <form class="form-inline my-2 my-lg-0">
                 {% if not user.is_authenticated %}
@@ -67,6 +58,26 @@
                 </ul>
                 {% else %}
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/inventory/" style="color:yellow;font-weight:bold;">창고 </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color:white;font-weight:bold;">
+                            상품
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/product-create/">상품 등록</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/product-list/">상품 리스트</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/inbound-create/">상품 입고</a></a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item disabled">
                         <span class="nav-link">
                             {{ user.username }} 님 반갑습니다!

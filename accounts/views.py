@@ -8,18 +8,6 @@ from django.contrib.auth.decorators import login_required
 # 임시 홈
 
 
-def home(request):
-
-    # context = {'message': '안녕하세요, 테스트 홈페이지입니다.'}
-
-    user = request.user.is_authenticated
-    if user:
-        # return redirect('/tweet')
-        return render(request, 'my_test.html')
-    else:
-        return redirect('/sign-in')
-
-
 def sign_up(request):
     if request.method == 'GET':
         user = request.user.is_authenticated

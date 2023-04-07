@@ -1,10 +1,11 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
-def base_response(request):
-    return HttpResponse("안녕하세요! 장고의 시작입니다!")
-
-
-def first_view(request):
-    return render(request, 'my_test.html')
+def home(request):
+    user = request.user.is_authenticated
+    if user:
+        return redirect('/inventory/')
+        # return render(request, 'home.html')
+    else:
+        return redirect('/sign-in')

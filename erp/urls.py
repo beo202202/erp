@@ -4,7 +4,6 @@ from . import views
 
 # erp/urls.py
 urlpatterns = [
-    # path('', views.home, name='home'),  # 임시
     path('product-create/', views.product_create, name='product_create'),
     path('product-list/', views.product_list, name='product_list'),
     path('product-success/', views.product_success, name='product_success'),
