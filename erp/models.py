@@ -13,18 +13,20 @@ class Product(models.Model):
     # 상품 모델입니다.
     # 상품 코드, 상품 이름, 상품 설명, 상품 가격, 사이즈 필드를 가집니다.
     # """
-    author = models.ForeignKey(AccountsModel, on_delete=models.CASCADE)
-    code = models.CharField(max_length=20, primary_key=True)
-    name = models.CharField(max_length=50)
-    description = models.TextField()
-    price = models.IntegerField()
+    author = models.ForeignKey(
+        AccountsModel, on_delete=models.CASCADE, verbose_name='담당자')
+    code = models.CharField(
+        max_length=20, primary_key=True, verbose_name='상품 코드')
+    name = models.CharField(max_length=50, verbose_name='상품 이름')
+    description = models.TextField(verbose_name='상품 설명')
+    price = models.IntegerField(verbose_name='상품 가격')
     sizes = (
         ('S', 'Small'),
         ('M', 'Medium'),
         ('L', 'Large'),
         ('F', 'Free'),
     )
-    size = models.CharField(choices=sizes, max_length=1)
+    size = models.CharField(choices=sizes, max_length=1, verbose_name='사이즈')
 
     # """
     # choices 매개변수는 Django 모델 필드에서 사용하는 매개변수 중 하나로
@@ -45,12 +47,44 @@ class Product(models.Model):
 
 
 class Inbound(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=0)
-    inbound_date = models.DateField(auto_now_add=True)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name='상품')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='수량')
+    inbound_date = models.DateField(auto_now_add=True, verbose_name='입고 날짜')
+    amount = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name='비용')
 
     class Meta:
         db_table = "inbound"
         # 내림차순으로 정렬
         ordering = ['-inbound_date']
+
+
+class Outbound(models.Model):
+    # """
+    # 출고 모델입니다.
+    # 상품, 수량, 출고 날짜, 금액 필드를 작성합니다.
+    # """
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, verbose_name='상품')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='수량')
+    outbound_date = models.DateField(auto_now_add=True, verbose_name='출고 날짜')
+    amount = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name='비용')
+
+    class Meta:
+        db_table = 'outbound'
+        # 내림차순으로 정렬
+        ordering = ['-outbound_date']
+
+
+class Inventory(models.Model):
+
+    #     """
+    # # 창고의 제품과 수량 정보를 담는 모델입니다.
+    # # 상품, 수량 필드를 작성합니다.
+    # # 작성한 Product 모델을 OneToOne 관계로 작성합시다.
+    # # """
+    product = models.OneToOneField(
+        Product, on_delete=models.CASCADE, primary_key=True, verbose_name='상품')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='수량')

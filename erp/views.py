@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
-from .forms import ProductForm, InboundForm
-from .models import Product, Inbound
+from .forms import ProductForm, InboundForm, OutboundForm
+from .models import Product, Inbound, Outbound, Inventory
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.db.models import Sum
 from datetime import datetime
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
+# get_object_or_404()를 써볼까?
 # Create your views here.
 
 # view.py
@@ -81,10 +85,73 @@ def inbound_create(request):
             inbound = form.save(commit=False)
             inbound.inbound_date = datetime.now()
             inbound.save()
+            # 입/출고 합산 기능 연결
+            return redirect('/inventory/')
             # 성공하셨습니다! 글자만 보여주고 주소는 같음.
-            return HttpResponse('성공하셨습니다!')
-            # 입/출고 합산 기능 연결...
-            # return redirect('inbound-list')
+            return HttpResponse('입고 성공하셨습니다!')
     else:
         form = InboundForm()
     return render(request, 'erp/inbound_create.html', {'form': form})
+
+
+@login_required
+def outbound_create(request, product_id):
+    # 선택한 상품을 가져옴
+    product = get_object_or_404(Product, code=product_id)
+    # 출고 기록 생성
+    outbound = Outbound(product=product)
+
+    if request.method == 'POST':
+        form = OutboundForm(request.POST, instance=outbound)
+        if form.is_valid():
+            # outbound.product = product
+            outbound = form.save(commit=False)
+            # 출고 기록 저장
+            outbound.save()
+            # 재고 수량 조정
+            # 인벤토리 만들면 거기서 체크하기
+            product.save()
+            # 인베토리로 연결하기
+            # 성공하셨습니다! 글자만 보여주고 주소는 같음.
+            return HttpResponse('출고 성공하셨습니다!')
+    else:
+        form = OutboundForm(instance=outbound)
+    return render(request, 'erp/outbound_create.html', {'form': form, 'product_id': product_id})
+
+
+@login_required
+def inventory(request):
+    # """
+    # inbound_create, outbound_create view에서 만들어진 데이터를 합산합니다.
+    # Django ORM을 통하여 총 수량, 가격등을 계산할 수 있습니다.
+    # """
+    # 총 입고 수량, 가격 계산
+
+    products = Product.objects.all()
+
+    for product in products:
+        # print(product)
+        # 총 입고 수량 계산
+        inbound_total_quantity = Inbound.objects.filter(product_id=product).aggregate(
+            total_quantity=Sum('quantity'))['total_quantity'] or 0
+        # 총 입고 비용 계산
+        inbound_total_amount = Inbound.objects.filter(product_id=product).aggregate(
+            total_amount=Sum('amount'))['total_amount'] or 0
+        # 총 출고 수량 계산
+        outbound_total_quantity = Outbound.objects.filter(product_id=product).aggregate(
+            total_quantity=Sum('quantity'))['total_quantity'] or 0
+        # 총 출고 수량 계산
+        outbound_total_amount = Outbound.objects.filter(product_id=product).aggregate(
+            total_amount=Sum('amount'))['total_amount'] or 0
+
+        # 현재 수량 계산
+        current_quantity = inbound_total_quantity - outbound_total_quantity
+
+        # Product 객체에 수량 정보 추가
+        product.inbound_total_quantity = inbound_total_quantity
+        product.inbound_total_amount = inbound_total_amount
+        product.outbound_total_quantity = outbound_total_quantity
+        product.outbound_total_amount = outbound_total_amount
+        product.current_quantity = current_quantity
+
+    return render(request, 'erp/inventory.html', {'products': products})

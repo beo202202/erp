@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="wrap">
+        <article>
+            <div class="title-center">
+                <h1>상품 출고하기</h1>
+                <form method="POST" class="post-form">
+                    {% csrf_token %}
+                    <!-- {{ product_id }} -->
+                    {{ form.as_p }}
+                    <br>
+                    <br>
+                    <!-- <input type="number" id="quantity" name="quantity" placeholder="수량">
+                    <br>
+                    <br>
+                    <input type="number" id="amount" name="amount" placeholder="비용">
+                    <br>
+                    <br> -->
+                    <button type="submit" class="btn btn-dark">출고하기</button>
+            </div>
+            </form>
+        </article>
+    </div>
+</div>
+{% endblock %}
