@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="title-center">Inventory</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>상품코드</th>
+                <th>상품명</th>
+                <th>총 입고 수량</th>
+                <th>총 입고 비용</th>
+                <th>총 출고 수량</th>
+                <th>총 출고 비용</th>
+                <th>현재 재고 수량</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td style="text-align: center;">{{ product.inbound_total_quantity }}</td>
+                <td style="text-align: center;">{{ product.inbound_total_amount }}</td>
+                <td style="text-align: center;">{{ product.outbound_total_quantity }}</td>
+                <td style="text-align: center;">{{ product.outbound_total_amount }}</td>
+                <td style="text-align: center;">{{ product.current_quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

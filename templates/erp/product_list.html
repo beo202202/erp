@@ -20,6 +20,7 @@
                         <th scope="col">설명</th>
                         <th scope="col">가격</th>
                         <th scope="col">size</th>
+                        <th scope="col">출고</th>
                     </tr>
                     {% for product in products %}
                     <tr>
@@ -29,6 +30,7 @@
                         <th scope="col">{{ product.description }}</th>
                         <th scope="col">{{ product.price }}</th>
                         <th scope="col">{{ product.size }}</th>
+                        <th scope="col"><a href="/outbound/{{ product.code }}/" class="btn btn-success">출고</a></th>
                     </tr>
                     {% endfor %}
                 </table>

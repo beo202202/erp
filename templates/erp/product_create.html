@@ -11,7 +11,7 @@
             <form method="post" action="/product-create/">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">저장</button>
+                <button type="submit" class="btn btn-warning">등록</button>
             </form>
         </article>
     </div>

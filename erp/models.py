@@ -52,7 +52,7 @@ class Inbound(models.Model):
     quantity = models.PositiveIntegerField(default=0, verbose_name='수량')
     inbound_date = models.DateField(auto_now_add=True, verbose_name='입고 날짜')
     amount = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name='금액')
+        max_digits=10, decimal_places=2, verbose_name='비용')
 
     class Meta:
         db_table = "inbound"
@@ -70,9 +70,21 @@ class Outbound(models.Model):
     quantity = models.PositiveIntegerField(default=0, verbose_name='수량')
     outbound_date = models.DateField(auto_now_add=True, verbose_name='출고 날짜')
     amount = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name='금액')
+        max_digits=10, decimal_places=2, verbose_name='비용')
 
     class Meta:
-        verbose_name_plural = 'outbound'
+        db_table = 'outbound'
         # 내림차순으로 정렬
         ordering = ['-outbound_date']
+
+
+class Inventory(models.Model):
+
+    #     """
+    # # 창고의 제품과 수량 정보를 담는 모델입니다.
+    # # 상품, 수량 필드를 작성합니다.
+    # # 작성한 Product 모델을 OneToOne 관계로 작성합시다.
+    # # """
+    product = models.OneToOneField(
+        Product, on_delete=models.CASCADE, primary_key=True, verbose_name='상품')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='수량')

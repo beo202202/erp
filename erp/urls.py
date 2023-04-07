@@ -12,5 +12,8 @@ urlpatterns = [
          name='product_all_delete'),
     path('product-my-all-delete/', views.product_my_all_delete,
          name='product_my_all_delete'),
-    path('inbound-create/', views.inbound_create, name='inbound_create')
+    path('inbound-create/', views.inbound_create, name='inbound_create'),
+    path('outbound/<str:product_id>/',
+         views.outbound_create, name='outbound_create'),
+    path('inventory/', views.inventory, name='inventory'),
 ]
