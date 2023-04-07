@@ -106,14 +106,26 @@ def outbound_create(request, product_id):
         if form.is_valid():
             # outbound.product = product
             outbound = form.save(commit=False)
+
+            products = Product.objects.all()
+
+            # 수량이 없으면 경고하기
+            for producta in products:
+                inbound_total_quantity = Inbound.objects.filter(product_id=product_id).aggregate(
+                    total_quantity=Sum('quantity'))['total_quantity'] or 0
+
+                producta.quantity_sum = inbound_total_quantity
+
+            outbound_quantity = form.cleaned_data['quantity']
+
+            if producta.quantity_sum < outbound_quantity:
+                return HttpResponse('출고할 수 있는 수량이 충분하지 않습니다.')
+
             # 출고 기록 저장
             outbound.save()
-            # 재고 수량 조정
-            # 인벤토리 만들면 거기서 체크하기
             product.save()
             # 인베토리로 연결하기
-            # 성공하셨습니다! 글자만 보여주고 주소는 같음.
-            return HttpResponse('출고 성공하셨습니다!')
+            return redirect('/product-success/')
     else:
         form = OutboundForm(instance=outbound)
     return render(request, 'erp/outbound_create.html', {'form': form, 'product_id': product_id})
