@@ -16,23 +16,23 @@
             <div class="border border-warning">
                 <table class="table">
                     <tr>
-                        <th scope="col">사람id</th>
+                        <!-- <th scope="col">사람id</th> -->
                         <th scope="col">코드</th>
                         <th scope="col">이름</th>
                         <th scope="col">설명</th>
                         <th scope="col">가격</th>
                         <th scope="col">size</th>
-                        <th scope="col">출고</th>
+                        <!-- <th scope="col">출고</th> -->
                     </tr>
                     {% for product in products %}
                     <tr>
-                        <th scope="col">{{ product.author_id }}</th>
+                        <!-- <th scope="col">{{ product.author_id }}</th> -->
                         <th scope="col">{{ product.code }}</th>
                         <th scope="col">{{ product.name }}</th>
                         <th scope="col">{{ product.description }}</th>
                         <th scope="col">{{ product.price }}</th>
                         <th scope="col">{{ product.size }}</th>
-                        <th scope="col"><a href="/outbound/{{ product.code }}/" class="btn btn-success">출고</a></th>
+                        <!-- <th scope="col"><a href="/outbound/{{ product.code }}/" class="btn btn-success">출고</a></th> -->
                     </tr>
                     {% endfor %}
                 </table>
