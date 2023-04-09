@@ -1,0 +1,29 @@
+<head>
+    <style>
+        .blossom_flake {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ffc0cb;
+            position: absolute;
+            top: -8px;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./blossom.js"></script>
+    <div class="blossom_flake"></div>
+</body>
