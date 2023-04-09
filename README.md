@@ -29,11 +29,11 @@ python manage.py flush
 
 --blossom prototype3--
 js안에서는 장고의 static 경로를 쓸 수 없으므로
-html에서 js를 불러오는 코드 안에 data-static-url="{% static 'imgs/' %}"를 넣고
+html에서 js를 불러오는 코드 안에 data-static-url="{% static 'imgs/' %}" (동적 경로)를 넣고
 js에서
 const STATIC_URL = document.querySelector('script[src$="blossom2.js"]').dataset.staticUrl;
 를 써서
-`${STATIC_URL}petal.png`; 이라는 정적 경로를 가져올 수 있었다.
+`${STATIC_URL}petal.png`; 이라는 경로를 가져올 수 있었다.
 
 주소가 바뀔 때마다 html에서 경로를 바꿔서 주기 때문에
 어디서나 가능하다.. 후...
