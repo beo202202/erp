@@ -27,7 +27,6 @@ settings.py의 static 폴더에 css,images,js를 어떻게 써야하는지 대�
 데이터베이스 초기화
 python manage.py flush
 
-
 --blossom prototype3--
 js안에서는 장고의 static 경로를 쓸 수 없으므로
 html에서 js를 불러오는 코드 안에 data-static-url="{% static 'imgs/' %}"를 넣고
