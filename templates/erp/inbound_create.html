@@ -5,12 +5,12 @@
 {% endblock %}
 {% block content %}
 <div class="container">
+    <h1 class="title-center">상품 입고</h1>
     <div class="wrap">
-        <h1>상품 입고</h1>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">저장</button>
+            <button type="submit">입고</button>
         </form>
     </div>
 </div>
