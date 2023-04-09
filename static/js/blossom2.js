@@ -6,8 +6,10 @@ const ctx = canvas.getContext('2d')
 const TOTAL = 100
 const petalArray = []
 
-// const imgUrl = "{% static 'imgs/petal.png' %}"
-const imgUrl = "../static/imgs/petal.png";
+const STATIC_URL = document.querySelector('script[src$="blossom2.js"]').dataset.staticUrl;
+const imgUrl = `${STATIC_URL}petal.png`;
+
+// console.log(imgUrl)
 
 const petalImg = new Image()
 petalImg.src = imgUrl
