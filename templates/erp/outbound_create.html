@@ -6,18 +6,15 @@
 {% block content %}
 <div class="container">
     <div class="wrap">
-        <article>
-            <div class="title-center">
-                <h1>상품 출고하기</h1>
-                <form method="POST" class="post-form">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-dark">출고하기</button>
-            </div>
-            </form>
-        </article>
+        <div class="title-center">
+            <h1>상품 출고하기</h1>
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <button type="submit" class="btn btn-dark">출고하기</button>
+        </div>
+        </form>
     </div>
 </div>
 {% endblock %}

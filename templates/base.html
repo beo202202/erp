@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,10 +38,43 @@
         .timeline-container {
             margin-top: 25px
         }
+
+        .blossom_flake {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ffc0cb;
+            position: absolute;
+            top: -8px;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background-color: transparent;
+        }
     </style>
 </head>
 
 <body>
+    <div id="background">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script type="text/javascript" src="{% static 'js/blossom2.js' %}"></script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="/">MUSINSA</a>
