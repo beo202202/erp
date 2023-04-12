@@ -1,7 +1,7 @@
 from django import forms
 from .models import Product, Inbound, Outbound
 
-# form.py
+# forms.py
 
 
 class ProductForm(forms.ModelForm):

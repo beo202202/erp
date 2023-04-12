@@ -39,6 +39,13 @@ def sign_up(request):
                     username=username, password=password, email=email)  # bio=bio)
                 return redirect('/sign-in')
 
+# user = get_user_model().objects.create(username=username).exist():
+#     return
+# user = get_user_model().objects.create(username=username)
+# user.set_password(password)
+# user.save()
+# return HttpResponse
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -58,8 +65,23 @@ def user_login(request):
         else:
             return render(request, 'accounts/login.html')
 
+    # username = request.POST.get("username", "")
+    # password = request.POST.get("password", "")
+
+    # user = authenticate(request, username=username, password=password)
+    # print(user, type(user))
+
+    # if not user:
+    #     return HttpResponse("존재하지 않는 계정이거나 비밀번호가 일치하지 않습니다.")
+
+    # login(request, user)
+
+    # return HttpResponse("")
+
 
 @login_required
 def user_logout(request):
     auth.logout(request)
     return redirect('/')
+
+    # logout(requset)

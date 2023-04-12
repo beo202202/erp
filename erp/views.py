@@ -14,6 +14,8 @@ from django.contrib import messages
 
 # view.py
 
+# transaction.atomic : 중간에 error가 발생하면 모든 데이터를 롤백한다.
+
 
 @transaction.atomic
 @login_required
